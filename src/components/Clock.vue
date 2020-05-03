@@ -1,9 +1,14 @@
 <template>
-  <div></div>
+  <div>
+    <clock></clock>
+  </div>
 </template>
 
 <script>
+import clock from "vue-clock2";
+
 export default {
-  name: "Clock"
+  name: "Clock",
+  components: { clock }
 };
 </script>

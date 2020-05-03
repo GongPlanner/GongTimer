@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Gong-Timer-Content">
     <Clock />
   </div>
 </template>
@@ -14,3 +14,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.Gong-Timer-Content {
+  display: flex;
+  justify-content: center;
+}
+</style>
