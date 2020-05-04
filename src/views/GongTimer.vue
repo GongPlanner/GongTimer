@@ -18,6 +18,8 @@ export default {
 <style scoped>
 .Gong-Timer-Content {
   display: flex;
+  align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 </style>
