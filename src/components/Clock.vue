@@ -6,7 +6,7 @@
       <div class="second hand"></div>
       <div class="graduations">
         <div class="graduation" v-for="i in 60" :key="i">
-          <p v-if="i % 5 === 0">{{ i }}</p>
+          <!-- <p v-if="i % 5 === 0">{{ i }}</p> -->
         </div>
       </div>
     </div>
