@@ -23,13 +23,21 @@
 
 <script>
 import clock from "@/utils/Clock.js";
+import styles from "@/assets/css/Clock.sass";
+
 export default {
   name: "Clock",
 
   watch: {
     timerRange: v => {
-      console.log(document.querySelector(".inner").style.width);
-      console.log(v);
+      if (v > 180) {
+        styles.degree1 = 180;
+        styles.degree2 = v - 180;
+      } else {
+        styles.degree1 = v;
+      }
+      console.log(document.getElementsByClassName("fill")[0].style);
+      console.log(styles.degree1);
     }
   },
   data: () => ({
