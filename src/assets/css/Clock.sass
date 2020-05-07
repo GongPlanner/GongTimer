@@ -11,16 +11,14 @@ $circleSize: 310px
 $degree1: 120deg
 $degree2: 0deg
 
-:export
-  degree1: $degree1
-  degree2: $degree2
-
 // ---- DOCUMENT
 *
   box-sizing: border-box !important
 
 // ---- CLOCK
 .clock
+  --degree1: #{$degree1}
+  --degree2: #{$degree2}
   width: $clockSize
   height: $clockSize
   padding: $clockPadding
@@ -38,14 +36,14 @@ $degree2: 0deg
     // box-shadow: 0 0 15px rgba(0,0,0,0.75) inset
 
     .fill
-      -webkit-transform: rotate($degree1)
-      -ms-transform: rotate($degree1)
-      transform: rotate(120deg)
+      -webkit-transform: rotate(var(--degree1))
+      -ms-transform: rotate(var(--degree1))
+      transform: rotate(var(--degree1))
 
     .mask.full
-      -webkit-transform: rotate($degree2)
-      -ms-transform: rotate($degree2)
-      transform: rotate($degree2)
+      -webkit-transform: rotate(var(--degree2))
+      -ms-transform: rotate(var(--degree2))
+      transform: rotate(var(--degree2))
 
     .mask,
     .fill
