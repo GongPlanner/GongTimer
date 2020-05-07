@@ -30,13 +30,13 @@ export default {
 
   watch: {
     timerRange: v => {
+      // sass export한 변수 불러는 와지지만 css가 실시간 적용이 안됨.
       if (v > 180) {
         styles.degree1 = 180;
         styles.degree2 = v - 180;
       } else {
         styles.degree1 = v;
       }
-      console.log(document.getElementsByClassName("fill")[0].style);
       console.log(styles.degree1);
     }
   },
@@ -46,6 +46,13 @@ export default {
 
   mounted() {
     new clock();
+    // document로 불러오고싶은데 안불러와짐
+    let timer = document.querySelector(".mask.half .fill");
+    console.log(timer.style.transform);
+
+    // 이건 제대로 나옴
+    let timer2 = document.querySelector(".second.hand");
+    console.log(timer2.style.transform);
   },
   destroyed() {
     clock.endSecTimer();
