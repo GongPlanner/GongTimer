@@ -80,19 +80,15 @@ $degree2: 0deg
         transform: rotate(calc(var(--degree1) + var(--degree2))) translate(-50%, -50%)
         transform-origin: 0 ($clockSize / 10)
 
-        &:before
-          content: ''
-          display: inherit
-          position: inherit
-          left: inherit
-          background-color: inherit
-          border-radius: 100%
-          transform: translate(-50%, -50%)
-
-        &:before
-          top: ($clockSize / 3.8)
-          width: ($clockSize / 20)
-          height: ($clockSize / 20)
+    .center
+      position: absolute
+      background-color: $secondHandBackgroundColor
+      top: 50%
+      left: 50%
+      border-radius: 100%
+      transform: translate(-50%, -50%)
+      width: ($clockSize / 20)
+      height: ($clockSize / 20)
 
     .graduations
       .graduation

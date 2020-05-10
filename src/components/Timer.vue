@@ -9,10 +9,12 @@
 
 <script>
 export default {
-  data: () => ({
-    min: "00",
-    sec: "00"
-  }),
+  data: function() {
+    return {
+      min: "00",
+      sec: "00"
+    };
+  },
   watch: {
     "$store.state.time": function() {
       const time = this.$store.state.time;
@@ -23,6 +25,7 @@ export default {
   },
   methods: {
     start() {
+      this.$store.dispatch("setTimerState", 1);
       this.timer = setInterval(() => {
         if (this.$store.state.time > 0) {
           this.$store.dispatch("decreaseTime");
@@ -32,12 +35,13 @@ export default {
       }, 1000);
     },
     stop() {
+      this.$store.dispatch("setTimerState", 0);
       clearInterval(this.timer);
     }
   },
   destroyed() {
     console.log("bye");
-    clearInterval(this.timer);
+    this.methods.stop();
   }
 };
 </script>

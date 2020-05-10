@@ -12,20 +12,31 @@ const db = firebase.firestore();
 export default new Vuex.Store({
   state: {
     data: {},
-    time: 0
+    time: 0,
+    timerState: 0
   },
   mutations: {
     setTime(state, time) {
       if (time <= 3600 && time >= 0) state.time = time;
+      else this.setTimerState(state, 0);
     },
     decreaseTime(state) {
       if (state.time > 0) --state.time;
+      else this.setTimerState(state, 0);
+    },
+    setTimerState(state, timerState) {
+      // 0 -> 초기 상태(멈춘 상태)
+      // 1 -> 동작 상태(시간 흘러가는 상태)
+      state.timerState = timerState;
+      console.log(state.timerState);
     },
     ...vuexfireMutations
   },
   actions: {
-    setTime: context => context.commit("setTime"),
+    setTime: (context, time) => context.commit("setTime", time),
     decreaseTime: context => context.commit("decreaseTime"),
+    setTimerState: (context, timerState) =>
+      context.commit("setTimerState", timerState),
     bindRef: firestoreAction((context, payload) => {
       context.bindFirestoreRef(payload.name, payload.ref, payload.options);
     }),
