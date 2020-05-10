@@ -8,7 +8,7 @@ $secondHandBackgroundColor: #ec231e
 
 $circleColor: red
 $circleSize: 310px
-$degree1: 120deg
+$degree1: 0deg
 $degree2: 0deg
 
 // ---- DOCUMENT
@@ -74,11 +74,11 @@ $degree2: 0deg
       //   margin-top: -($clockSize / 13.2)
       //   transform: rotate(0deg) translate(-50%, -50%)
       //   transform-origin: 0 ($clockSize / 13.2)
-      // &.minute
-      //   height: ($clockSize / 3)
-      //   margin-top: -($clockSize / 13.2)
-      //   transform: rotate(0deg) translate(-50%, -50%)
-      //   transform-origin: 0 ($clockSize / 13.2)
+      &.minute
+        height: ($clockSize / 3)
+        margin-top: -($clockSize / 13.2)
+        transform: rotate(0deg) translate(-50%, -50%)
+        transform-origin: 0 ($clockSize / 13.2)
       &.second
         width: ($clockSize / 185)
         height: ($clockSize / 3)
@@ -116,7 +116,7 @@ $degree2: 0deg
         top: ($innerBorderWidth * 1.5)
         left: 50%
         width: ($clockSize / 185)
-        height: ($clockSize / 40)
+        height: ($clockSize / 30)
         // background-color: #181818
         transform: rotate(0deg) translateX(-50%)
         transform-origin: 0 ((($clockSize - ($clockPadding * 2)) / 2) - ($innerBorderWidth * 3))

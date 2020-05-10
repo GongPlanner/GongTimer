@@ -1,29 +1,33 @@
 <template>
-  <div class="clock" :style="timerCss">
-    <div class="inner">
-      <div class="mask full">
-        <div class="fill"></div>
-      </div>
-      <div class="mask half">
-        <div class="fill"></div>
-      </div>
-      <div class="hour hand"></div>
-      <div class="minute hand"></div>
-      <div class="second hand"></div>
-      <div class="graduations">
-        <div class="graduation" v-for="i in 60" :key="i">
-          <p v-if="i % 5 === 0">{{ i }}</p>
+  <div>
+    <div>{{ min }} : {{ sec }}</div>
+
+    <div class="clock" :style="timerCss">
+      <div class="inner">
+        <div class="mask full">
+          <div class="fill"></div>
+        </div>
+        <div class="mask half">
+          <div class="fill"></div>
+        </div>
+        <div class="hour hand"></div>
+        <div class="minute hand"></div>
+        <div class="second hand"></div>
+        <div class="graduations">
+          <div class="graduation" v-for="i in 60" :key="i">
+            <p v-if="i % 5 === 0">{{ i }}</p>
+          </div>
         </div>
       </div>
+      <input
+        name="timer-range"
+        type="range"
+        v-model="timerRange"
+        min="0"
+        max="60"
+      />
+      {{ timerRange }}
     </div>
-    <input
-      name="timer-range"
-      type="range"
-      v-model="timerRange"
-      min="0"
-      max="360"
-    />
-    {{ timerRange }}
   </div>
 </template>
 
@@ -50,13 +54,12 @@ export default {
     timerCss() {
       let degree1 = 0;
       let degree2 = 0;
-      if (this.timerRange > 180) {
+      if (this.timerRange > 30) {
         degree1 = 180;
-        degree2 = this.timerRange - 180;
+        degree2 = (this.timerRange - 30) * 6;
       } else {
-        degree1 = this.timerRange;
+        degree1 = this.timerRange * 6;
       }
-      console.log(degree1, degree2);
 
       return {
         "--degree1": `${degree1}deg`,
@@ -65,21 +68,11 @@ export default {
     }
   },
   data: () => ({
-    timerRange: 120
+    timerRange: 0
   }),
 
   mounted() {
     new clock();
-    // document로 불러오고싶은데 안불러와짐
-    let timer = document.querySelector(".mask.half .fill");
-    console.log(timer.style.transform);
-
-    // 이건 제대로 나옴
-    let timer2 = document.querySelector(".second.hand");
-    console.log(timer2.style.transform);
-  },
-  destroyed() {
-    clock.endSecTimer();
   }
 };
 </script>
