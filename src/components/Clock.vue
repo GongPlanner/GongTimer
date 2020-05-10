@@ -8,8 +8,6 @@
         <div class="mask half">
           <div class="fill"></div>
         </div>
-        <div class="hour hand"></div>
-        <div class="minute hand"></div>
         <div class="second hand"></div>
         <div class="graduations">
           <div class="graduation" v-for="i in 60" :key="i">
@@ -20,9 +18,10 @@
       <input
         name="timer-range"
         type="range"
-        v-model="timerRange"
+        value="timerRange"
+        @input="changeTimerRange"
         min="0"
-        max="60"
+        max="3600"
       />
       {{ timerRange }}
     </div>
@@ -30,33 +29,24 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import clock from "@/utils/Clock.js";
 
 export default {
   name: "Clock",
-
-  // watch: {
-  //   timerRange: v => {
-  //     // sass export한 변수 불러는 와지지만 css가 실시간 적용이 안됨.
-  //     // if (v > 180) {
-  //     //   styles.degree1 = 180;
-  //     //   styles.degree2 = v - 180;
-  //     // } else {
-  //     // }
-  //     // this.timerRange = v;
-  //     console.log(v);
-  //     // document.style.setProperty("--degree1", `${v}px`);
-  //   }
-  // },
   computed: {
+    ...mapState({
+      timerRange: state => state.time
+    }),
     timerCss() {
       let degree1 = 0;
       let degree2 = 0;
-      if (this.timerRange > 30) {
+      if (this.timerRange > 1800) {
         degree1 = 180;
-        degree2 = (this.timerRange - 30) * 6;
+        degree2 = (this.timerRange - 1800) / 10;
       } else {
-        degree1 = this.timerRange * 6;
+        degree1 = this.timerRange / 10;
+        degree2 = 0;
       }
 
       return {
@@ -65,10 +55,11 @@ export default {
       };
     }
   },
-  data: () => ({
-    timerRange: 0
-  }),
-
+  methods: {
+    changeTimerRange(e) {
+      this.$store.commit("setTime", e.target.value);
+    }
+  },
   mounted() {
     new clock();
   }

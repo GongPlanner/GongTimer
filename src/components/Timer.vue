@@ -1,38 +1,39 @@
 <template>
-  <div>{{ min }} : {{ sec }}</div>
+  <div>
+    {{ min }} : {{ sec }}
+    <div>
+      <button @click="start" @keyup.enter="start">start</button>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    time: 60,
     min: "00",
     sec: "00"
   }),
-  methods: {
-    prettyTime() {
-      let time = this.time / 60;
-      let minutes = parseInt(time);
-      let secondes = Math.round((time - minutes) * 60);
-      return minutes + " : " + secondes;
+  watch: {
+    "$store.state.time": function() {
+      const time = this.$store.state.time;
+      this.min = `${parseInt(time / 60)}`.padStart(2, "0");
+      this.sec = `${time % 60}`.padStart(2, "0");
+      console.log(this.$store.state.time);
     }
   },
-  mounted() {
-    this.timer = setInterval(() => {
-      this.min = parseInt(this.time / 60);
-      this.sec = this.time % 60;
-      if (this.min < 10) {
-        this.min = "0" + this.min;
-      }
-      if (this.sec < 10) {
-        this.sec = "0" + this.sec;
-      }
-      if (this.time > 0) {
-        this.time--;
-      } else {
-        clearInterval(this.timer);
-      }
-    }, 1000);
+  methods: {
+    start() {
+      this.timer = setInterval(() => {
+        if (this.$store.state.time > 0) {
+          this.$store.dispatch("decreaseTime");
+        } else {
+          this.stop();
+        }
+      }, 1000);
+    },
+    stop() {
+      clearInterval(this.timer);
+    }
   },
   destroyed() {
     console.log("bye");

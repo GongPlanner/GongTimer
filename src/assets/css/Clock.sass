@@ -1,7 +1,7 @@
 // ---- VARIABLES
 $clockSize: 360px
 $clockPadding: ($clockSize / 14.4)
-$clockBackground: #F7F7F7
+$clockBackground: #EEEEEE
 $innerBorderWidth: ($clockSize / 72)
 $innerBorderColor: #181818
 $secondHandBackgroundColor: #ec231e
@@ -30,7 +30,7 @@ $degree2: 0deg
     position: relative
     width: 100%
     height: 100%
-    background: #fff
+    // background: #fff
     // border: $innerBorderWidth solid $innerBorderColor
     border-radius: 100%
     // box-shadow: 0 0 15px rgba(0,0,0,0.75) inset
@@ -51,9 +51,9 @@ $degree2: 0deg
       height: 100%
       position: absolute
       border-radius: 50%
-      transition: -webkit-transform 1s
-      transition: -ms-transform 1s
-      transition: transform 1s
+      transition: -webkit-transform 0.2s
+      transition: -ms-transform 0.2s
+      transition: transform 0.2s
       -webkit-backface-visibility: hidden
 
     .mask
@@ -69,26 +69,18 @@ $degree2: 0deg
       width: ($clockSize / 50)
       background-color: #181818
 
-      // &.hour
-      //   height: ($clockSize / 4)
-      //   margin-top: -($clockSize / 13.2)
-      //   transform: rotate(0deg) translate(-50%, -50%)
-      //   transform-origin: 0 ($clockSize / 13.2)
-      &.minute
-        height: ($clockSize / 3)
-        margin-top: -($clockSize / 13.2)
-        transform: rotate(0deg) translate(-50%, -50%)
-        transform-origin: 0 ($clockSize / 13.2)
       &.second
         width: ($clockSize / 185)
         height: ($clockSize / 3)
         background-color: $secondHandBackgroundColor
         margin-top: -($clockSize / 10)
-        box-shadow: -4px -6px 0 0 rgba(0, 0, 0, 0.15)
-        transform: rotate(0deg) translate(-50%, -50%)
+        transition: -webkit-transform 0.2s
+        transition: -ms-transform 0.2s
+        transition: transform 0.2s
+        transform: rotate(calc(var(--degree1) + var(--degree2))) translate(-50%, -50%)
         transform-origin: 0 ($clockSize / 10)
 
-        &:before, &:after
+        &:before
           content: ''
           display: inherit
           position: inherit
@@ -101,13 +93,6 @@ $degree2: 0deg
           top: ($clockSize / 3.8)
           width: ($clockSize / 20)
           height: ($clockSize / 20)
-          box-shadow: -2px -2px 2px 0 rgba(0, 0, 0, 0.15)
-
-        &:after
-          top: ($clockSize / 18)
-          width: ($clockSize / 36)
-          height: ($clockSize / 36)
-          box-shadow: -4px -6px 2px 0 rgba(0, 0, 0, 0.15)
 
     .graduations
       .graduation
@@ -117,7 +102,7 @@ $degree2: 0deg
         left: 50%
         width: ($clockSize / 185)
         height: ($clockSize / 30)
-        // background-color: #181818
+        background-color: #181818
         transform: rotate(0deg) translateX(-50%)
         transform-origin: 0 ((($clockSize - ($clockPadding * 2)) / 2) - ($innerBorderWidth * 3))
 

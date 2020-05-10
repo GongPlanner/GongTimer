@@ -11,10 +11,21 @@ const db = firebase.firestore();
 
 export default new Vuex.Store({
   state: {
-    data: {}
+    data: {},
+    time: 0
   },
-  mutations: vuexfireMutations,
+  mutations: {
+    setTime(state, time) {
+      if (time <= 3600 && time >= 0) state.time = time;
+    },
+    decreaseTime(state) {
+      if (state.time > 0) --state.time;
+    },
+    ...vuexfireMutations
+  },
   actions: {
+    setTime: context => context.commit("setTime"),
+    decreaseTime: context => context.commit("decreaseTime"),
     bindRef: firestoreAction((context, payload) => {
       context.bindFirestoreRef(payload.name, payload.ref, payload.options);
     }),
