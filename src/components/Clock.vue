@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div>{{ min }} : {{ sec }}</div>
-
     <div class="clock" :style="timerCss">
       <div class="inner">
         <div class="mask full">
