@@ -18,11 +18,13 @@ export default new Vuex.Store({
   mutations: {
     setTime(state, time) {
       if (time <= 3600 && time >= 0) state.time = time;
-      else this.setTimerState(state, 0);
+      else state.timerState = 0;
     },
     decreaseTime(state) {
-      if (state.time > 0) --state.time;
-      else this.setTimerState(state, 0);
+      if (state.time > 0) {
+        --state.time;
+      }
+      if (state.time <= 0) state.timerState = 0;
     },
     setTimerState(state, timerState) {
       // 0 -> 초기 상태(멈춘 상태)

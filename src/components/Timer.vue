@@ -1,13 +1,30 @@
 <template>
-  <div>
-    {{ min }} : {{ sec }}
-    <div>
-      <button @click="start" @keyup.enter="start">start</button>
-    </div>
+  <div class="timer-container">
+    <input
+      name="timer-range"
+      class="timer-range"
+      type="range"
+      :value="time"
+      @input="inputTimerRange"
+      min="0"
+      max="3600"
+    />
+    <label class="timer-label" for="timer-range">{{ min }} : {{ sec }}</label>
+    <button
+      class="timer-start-button"
+      @click="start"
+      @keyup.enter="start"
+      :disabled="timerState === 1 ? true : false"
+    >
+      <span v-if="timerState === 1">playing...</span>
+      <span v-else>start</span>
+    </button>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data: function() {
     return {
@@ -16,34 +33,48 @@ export default {
     };
   },
   watch: {
-    "$store.state.time": function() {
-      const time = this.$store.state.time;
-      this.min = `${parseInt(time / 60)}`.padStart(2, "0");
-      this.sec = `${time % 60}`.padStart(2, "0");
-      console.log(this.$store.state.time);
+    time: function() {
+      this.min = `${parseInt(this.time / 60)}`.padStart(2, "0");
+      this.sec = `${this.time % 60}`.padStart(2, "0");
+      console.log(this.time);
     }
   },
+  computed: {
+    ...mapState({
+      time: state => state.time,
+      timerState: state => state.timerState
+    })
+  },
   methods: {
+    inputTimerRange(e) {
+      this.$store.commit("setTime", e.target.value);
+    },
     start() {
+      const isNotValid = this.timerState === 1 || this.time <= 0;
+      if (isNotValid) return;
+
       this.$store.dispatch("setTimerState", 1);
+
+      const stop = this.stop;
       this.timer = setInterval(() => {
-        if (this.$store.state.time > 0) {
+        if (this.timerState === 1) {
           this.$store.dispatch("decreaseTime");
         } else {
-          this.stop();
+          stop();
         }
       }, 1000);
     },
     stop() {
-      this.$store.dispatch("setTimerState", 0);
+      if (this.timerState === 1) {
+        this.$store.dispatch("setTimerState", 0);
+      }
       clearInterval(this.timer);
     }
   },
   destroyed() {
-    console.log("bye");
-    this.methods.stop();
+    this.stop();
   }
 };
 </script>
 
-<style></style>
+<style lang="sass" scoped src="@/assets/css/Timer.sass"></style>

@@ -2,7 +2,7 @@
 $clockSize: 360px
 $clockPadding: ($clockSize / 14.4)
 $clockBackground: #EEEEEE
-$innerBorderWidth: ($clockSize / 72)
+// $innerBorderWidth: ($clockSize / 72)
 $innerBorderColor: #181818
 $secondHandBackgroundColor: #ec231e
 
@@ -32,7 +32,7 @@ $degree2: 0deg
     height: 100%
     // background: #fff
     // border: $innerBorderWidth solid $innerBorderColor
-    border-radius: 100%
+    // border-radius: 100%
     // box-shadow: 0 0 15px rgba(0,0,0,0.75) inset
 
     .fill
@@ -74,9 +74,9 @@ $degree2: 0deg
         height: ($clockSize / 3)
         background-color: $secondHandBackgroundColor
         margin-top: -($clockSize / 10)
-        transition: -webkit-transform 0.2s
-        transition: -ms-transform 0.2s
-        transition: transform 0.2s
+        // transition: -webkit-transform 0.2s
+        // transition: -ms-transform 0.2s
+        // transition: transform 0.2s
         transform: rotate(calc(var(--degree1) + var(--degree2))) translate(-50%, -50%)
         transform-origin: 0 ($clockSize / 10)
 
@@ -94,13 +94,11 @@ $degree2: 0deg
       .graduation
         display: block
         position: absolute
-        top: ($innerBorderWidth * 1.5)
         left: 50%
         width: ($clockSize / 185)
         height: ($clockSize / 30)
         background-color: #181818
-        transform: rotate(0deg) translateX(-50%)
-        transform-origin: 0 ((($clockSize - ($clockPadding * 2)) / 2) - ($innerBorderWidth * 3))
+        transform-origin: 0 ($clockSize - ($clockPadding * 2)) / 2
 
         &:nth-child(5n-4)
           width: ($clockSize / 90)
@@ -108,4 +106,15 @@ $degree2: 0deg
 
         @for $i from 1 through 60
           &:nth-child(#{$i})
-            transform: rotate(#{( 6 * $i) - 5}deg) translateX(-50%)
+            transform: rotate(#{(6 * $i) - 5}deg) translateX(-50%)
+      
+    // .numbers
+    //   .number
+    //     display: block
+    //     position: absolute
+    //     left: 50%
+    //     transform-origin: 0 ($clockSize - ($clockPadding * 2)) / 2
+        
+    //     @for $i from 1 through 12
+    //       &:nth-child(#{$i})
+    //         transform: rotate(#{(30 * $i) - 29}deg) translateX(-50%)

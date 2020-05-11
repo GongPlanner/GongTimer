@@ -11,20 +11,14 @@
         <div class="second hand"></div>
         <div class="center" ref="center"></div>
         <div class="graduations">
-          <div class="graduation" v-for="i in 60" :key="i">
-            <p v-if="i % 5 === 0">{{ i }}</p>
-          </div>
+          <div class="graduation" v-for="i in 60" :key="i"></div>
         </div>
+        <!-- <div class="numbers">
+          <span class="number" v-for="(n, i) in clockNumbers" :key="i">{{
+            n
+          }}</span>
+        </div> -->
       </div>
-      <input
-        name="timer-range"
-        type="range"
-        value="timerRange"
-        @input="changeTimerRange"
-        min="0"
-        max="3600"
-      />
-      {{ timerRange }}
     </div>
   </div>
 </template>
@@ -51,6 +45,9 @@ export default {
     ...mapState({
       timerRange: state => state.time
     }),
+    clockNumbers() {
+      return [...Array(12).keys()].map(x => x * 5);
+    },
     timerCss() {
       let degree1 = 0;
       let degree2 = 0;
@@ -69,9 +66,6 @@ export default {
     }
   },
   methods: {
-    changeTimerRange(e) {
-      this.$store.commit("setTime", e.target.value);
-    },
     clickClock(e) {
       const x = e.clientX;
       const y = e.clientY;
@@ -84,6 +78,7 @@ export default {
         cal = 360 + (Math.atan2(dx, -dy) * 180) / Math.PI;
       }
       this.$store.dispatch("setTime", parseInt(cal * 10));
+      this.$store.dispatch("setTimerState", 0);
     }
   },
   mounted() {

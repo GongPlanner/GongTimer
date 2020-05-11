@@ -1,8 +1,8 @@
 <template>
   <div class="Gong-Content">
-    <Timer class="Gong-Timer-Content" />
     <Clock class="Gong-Clock-Content" />
-    {{ data }}
+    <Timer class="Gong-Timer-Content" />
+    <!-- {{ data }} -->
   </div>
 </template>
 
@@ -29,20 +29,13 @@ export default {
 
 <style scoped>
 .Gong-Content {
+  display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 100vh;
 }
 .Gong-Timer-Content {
-  align-items: center;
-  justify-content: center;
-
-  display: block;
-}
-.Gong-Clock-Content {
-  align-items: center;
-  justify-content: center;
-
-  display: block;
+  margin-top: 40px;
 }
 </style>
