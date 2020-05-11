@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "gong-planner"
+  },
+  "targets": {
+    "gong-planner": {
+      "hosting": {
+        "timer": [
+          "gong-timer"
+        ]
+      }
+    }
+  }
+}

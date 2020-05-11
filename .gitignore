@@ -5,7 +5,6 @@
 ### Firebase ###
 .idea
 **/node_modules/*
-**/.firebaserc
 src/**/firebase.json
 
 ### Firebase Patch ###
