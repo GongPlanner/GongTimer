@@ -31,7 +31,7 @@ export default {
   name: "Clock",
   data: function() {
     return {
-      middle: {
+      center: {
         x: 0,
         y: 0
       },
@@ -69,8 +69,8 @@ export default {
     clickClock(e) {
       const x = e.clientX;
       const y = e.clientY;
-      const dx = x - this.$data.middle.x;
-      const dy = y - this.$data.middle.y;
+      const dx = x - this.$data.center.x;
+      const dy = y - this.$data.center.y;
       let cal = 0;
       if (dx > 0) {
         cal = (Math.atan2(dx, -dy) * 180) / Math.PI;
@@ -84,12 +84,12 @@ export default {
   mounted() {
     // new clock();
     const centerRect = this.$refs.center.getBoundingClientRect();
-    const middleX = centerRect.left + centerRect.width / 2;
-    const middleY = centerRect.top + centerRect.height / 2;
+    const centerX = centerRect.left + centerRect.width / 2;
+    const centerY = centerRect.top + centerRect.height / 2;
 
-    this.$set(this.middle, "x", parseInt(middleX));
-    this.$set(this.middle, "y", parseInt(middleY));
-    console.log(this.$data.middle.x, this.$data.middle.y);
+    this.$set(this.center, "x", parseInt(centerX));
+    this.$set(this.center, "y", parseInt(centerY));
+    console.log(this.$data.center.x, this.$data.center.y);
   }
 };
 </script>
