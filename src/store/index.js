@@ -30,7 +30,7 @@ export default new Vuex.Store({
       // 0 -> 초기 상태(멈춘 상태)
       // 1 -> 동작 상태(시간 흘러가는 상태)
       state.timerState = timerState;
-      console.log(state.timerState);
+      console.log("타이머 상태:", state.timerState === 0 ? "대기중" : "재생중");
     },
     ...vuexfireMutations
   },

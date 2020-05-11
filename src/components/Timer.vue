@@ -29,7 +29,13 @@ export default {
   data: function() {
     return {
       min: "00",
-      sec: "00"
+      sec: "00",
+      alarm: {
+        name: "default",
+        file: new Audio(
+          "http://soundbible.com/mp3/Fire_pager-jason-1283464858.mp3"
+        )
+      }
     };
   },
   watch: {
@@ -50,6 +56,8 @@ export default {
       this.$store.commit("setTime", e.target.value);
     },
     start() {
+      this.$data.alarm.file.pause();
+
       const isNotValid = this.timerState === 1 || this.time <= 0;
       if (isNotValid) return;
 
@@ -59,6 +67,9 @@ export default {
       this.timer = setInterval(() => {
         if (this.timerState === 1) {
           this.$store.dispatch("decreaseTime");
+          if (this.time <= 0) {
+            stop();
+          }
         } else {
           stop();
         }
@@ -67,6 +78,9 @@ export default {
     stop() {
       if (this.timerState === 1) {
         this.$store.dispatch("setTimerState", 0);
+      }
+      if (this.time <= 0) {
+        this.$data.alarm.file.play();
       }
       clearInterval(this.timer);
     }
